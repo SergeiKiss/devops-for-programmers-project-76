@@ -1,0 +1,12 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Run container
+      docker_container:
+        name: redmine
+        image: redmine
+        detach: yes
+        restart_policy: always
+        pull: true
+        ports:
+          - "8080:3000"
