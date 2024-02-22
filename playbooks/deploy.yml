@@ -1,7 +1,15 @@
 - hosts: all
   become: true
   tasks:
-    - name: Run container
+    - name: Creating app dir
+      file:
+        path: /app
+        state: directory
+    - name: Creating .env
+      template:
+        src: ../templates/.env.template
+        dest: /app/.env
+    - name: Running container
       docker_container:
         name: redmine
         image: redmine
@@ -10,3 +18,4 @@
         pull: true
         ports:
           - "8080:3000"
+        env_file: /app/.env

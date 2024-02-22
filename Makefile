@@ -6,4 +6,7 @@ setup:
 	ansible-playbook playbook.yml -i inventory.ini
 
 deploy:
-	ansible-playbook playbooks/deploy.yml -i inventory.ini -u sergeikiss
+	ansible-playbook --ask-vault-pass playbooks/deploy.yml -i inventory.ini -u sergeikiss
+
+encryption:
+	ansible-vault encrypt group_vars/webservers/vault.yml
