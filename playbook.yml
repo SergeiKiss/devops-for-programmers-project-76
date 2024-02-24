@@ -5,3 +5,20 @@
       - name: docker
   roles:
   - role: geerlingguy.pip
+
+- hosts: webservers
+  become: true
+  gather_facts: yes
+  roles:
+    - role: datadog.dd
+      vars:
+        datadog_api_key: '{{ DD_API_KEY }}'
+        datadog_site: datadoghq.eu
+        datadog_checks:
+          http_check:
+            init_config:
+            instances:
+              - name: First
+                url: http://158.160.62.170:8080
+              - name: Second
+                url: http://158.160.40.223:8080
